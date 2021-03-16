@@ -60,7 +60,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
     store: true ? new Pgstore() : null, // Persisting your sessions change isProd to true if you want constant persistence
-    name: "paxinfy",
+    name: "school management dashboard",
     saveUninitialized: false,
     resave: false,
     secret: process.env.APP_SECRET,
@@ -76,7 +76,7 @@ app.use(usession.main(session, roles));
 
 app.get("/", (req, res) =>
   res.status(200).json({
-    message: "Welcome to paxinfy",
+    message: "Welcome to school management dashboard",
   })
 );
 Routes(app);
