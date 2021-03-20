@@ -24,7 +24,7 @@
     "migrate:undo": "sequelize db:migrate:undo",
     "seed": "sequelize db:seed:all",
     "seed:undo": "sequelize db:seed:undo",
-    "build": "babel server --copy-files --out-dir dist",
+    "build": "cross-env NODE_ENV=production sequelize db:migrate && babel server --copy-files --out-dir dist",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "devDependencies": {
