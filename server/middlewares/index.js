@@ -1,7 +1,5 @@
-import usession from './user_session';
-import validate from './validators';
-import {
-} from './SessionCallback';
+import validate from "./validators";
+import {} from "./SessionCallback";
 import {
   loginSchema,
   resetPasswordSchema,
@@ -9,13 +7,12 @@ import {
   changePasswordSchema,
   updateUserSchema,
   confirmEmailSchema,
-} from './validators/schemas/user';
+} from "./validators/schemas/user";
 
-import { isLoggedIn } from './auth';
-import { checkInvitation } from './checker';
+import { isLoggedIn } from "./auth";
+import { checkInvitation } from "./checker";
 
 export default {
-  usession,
   validate,
   loginSchema,
   signUpSchema,
@@ -23,5 +20,5 @@ export default {
   resetPasswordSchema,
   changePasswordSchema,
   checkInvitation,
-  isLoggedIn
+  isLoggedIn,
 };

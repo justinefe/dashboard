@@ -1,17 +1,17 @@
 import express from "express";
-import session from "express-session";
+// import session from "express-session";
 import formData from "express-form-data";
-import connectPg from "connect-pg-simple";
+// import connectPg from "connect-pg-simple";
 import "express-async-errors";
-import cookieParser from "cookie-parser";
+// import cookieParser from "cookie-parser";
 import debug from "debug";
 import logger from "morgan";
 import chalk from "chalk";
 import cors from "cors";
 import os from "os";
 import { config } from "dotenv";
-import roles from "./helpers/roles";
-import usession from "./middlewares/user_session";
+// import roles from "./helpers/roles";
+// import usession from "./middlewares/user_session";
 import Routes from "./routes";
 import db from "./database/models";
 
@@ -19,7 +19,7 @@ config();
 const log = debug("dev");
 const app = express();
 
-const isProd = process.env.NODE_ENV === "production";
+// const isProd = process.env.NODE_ENV === "production";
 
 // Options for media upload to backend for cloudinary
 const options = {
@@ -32,47 +32,30 @@ app.use(formData.format());
 app.use(formData.stream());
 app.use(formData.union());
 
-const Pgstore = connectPg(session);
+// const Pgstore = connectPg(session);
 
-const whitelist = ["http://localhost:3000"];
-const corsOptions = {
-  origin(origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-  allowedHeaders: [
-    "Access-Control-Allow-Origin",
-    "Access-Control-Allow-Headers",
-    "Content-Type",
-  ],
-};
+// const whitelist = ["http://localhost:3000"];
+// const corsOptions = {
+//   origin(origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true,
+//   allowedHeaders: [
+//     "Access-Control-Allow-Origin",
+//     "Access-Control-Allow-Headers",
+//     "Content-Type",
+//   ],
+// };
 
 app.use(cors());
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use(
-  session({
-    store: true ? new Pgstore() : null, // Persisting your sessions change isProd to true if you want constant persistence
-    name: "school management dashboard",
-    saveUninitialized: false,
-    resave: false,
-    secret: process.env.APP_SECRET,
-    cookie: {
-      maxAge: 172800 * 1000, // maximum cookie duration is 2 days
-      sameSite: isProd,
-      secure: isProd,
-    },
-  })
-);
-
-app.use(usession.main(session, roles));
 
 app.get("/", (req, res) =>
   res.status(200).json({
